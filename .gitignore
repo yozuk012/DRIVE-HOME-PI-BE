@@ -91,3 +91,12 @@ test-files/
 *.backup
 *.tmp
 *.temp
+
+# ============================================
+# SSL CERTIFICATES (SANGAT PENTING!)
+# ============================================
+# Private key dan certificate TIDAK BOLEH masuk GitHub
+certs/
+*.pem
+*.key
+*.crt

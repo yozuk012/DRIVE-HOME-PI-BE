@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const folderRoutes = require('./routes/folderRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const fileRoutes = require('./routes/fileRoutes'); 
@@ -13,6 +16,15 @@ const { startCronJobs } = require('./utils/cronJobs');
 
 const app = express();
 const PORT = 5000;
+
+// ============================================
+// SSL CERTIFICATE CONFIGURATION
+// ============================================
+// Load self-signed SSL certificate untuk HTTPS
+const sslOptions = {
+    key: fs.readFileSync(path.join(__dirname, 'certs/key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'certs/cert.pem'))
+};
 
 // Middleware Bawaan
 app.use(cors());
@@ -32,8 +44,14 @@ app.use('/api/health', healthRoutes);
 app.use(errorHandler);
 startCronJobs();
 
-app.listen(PORT, () => {
-    console.log(`Server Backend API berjalan di port ${PORT}`);
+// ============================================
+// HTTPS SERVER (Mengganti HTTP)
+// ============================================
+https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server Backend API berjalan di HTTPS port ${PORT}`);
+    console.log(`📍 Local: https://localhost:${PORT}`);
+    console.log(`📍 Network: https://192.168.1.100:${PORT}`);
+    console.log(`🔒 SSL: Self-signed certificate (untuk akses lokal)`);
     console.log(`🧠 Memory limit: 384MB (configured in package.json)`);
 });
 
