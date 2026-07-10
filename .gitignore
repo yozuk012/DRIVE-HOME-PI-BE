@@ -68,3 +68,26 @@ coverage/
 # ============================================
 *.bak
 *.backup
+
+# ============================================
+# LARGE FILES & SAMPLES
+# ============================================
+# Cloudflare Tunnel installer (download manual dari official website)
+cloudflared.deb
+
+# Sample files untuk testing (jangan commit file pribadi)
+sample/
+samples/
+test-files/
+*.deb
+*.rpm
+*.dmg
+*.exe
+
+# ============================================
+# BACKUP & TEMPORARY
+# ============================================
+*.bak
+*.backup
+*.tmp
+*.temp

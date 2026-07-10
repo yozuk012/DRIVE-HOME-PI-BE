@@ -8,6 +8,7 @@ const storageRoutes = require('./routes/storageRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const viewRoutes = require('./routes/viewRoutes'); 
 const lockRoutes = require('./routes/lockRoutes');
+const healthRoutes = require('./routes/healthRoutes');
 const { startCronJobs } = require('./utils/cronJobs');
 
 const app = express();
@@ -25,6 +26,7 @@ app.use('/api/storage', storageRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/view', viewRoutes);
 app.use('/api/locks', lockRoutes);
+app.use('/api/health', healthRoutes); 
 
 // Error Handler
 app.use(errorHandler);
